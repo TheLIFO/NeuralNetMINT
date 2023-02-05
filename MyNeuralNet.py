@@ -70,7 +70,7 @@ class NNIMG:
             
             plt.plot (self.lastX, self.lastY, colstr)
             
-            self.training_data.append((np.empty([2L,1L]),np.empty([2L,1L])))
+            self.training_data.append((np.empty([2,1]),np.empty([2,1])))
             self.training_data [self.n][0][0] = float(self.lastX)/self.img.shape[1] 
             self.training_data [self.n][0][1] = float(self.lastY)/self.img.shape[0]
             self.training_data [self.n][1][0] = 0
@@ -85,8 +85,8 @@ class NNIMG:
                 cost,accuracy = self.net.GD(self.training_data, 1,  0.75, monitor_training_accuracy=True, monitor_training_cost=True)
                 plt.title('error = %1.3f' % cost)
                 diff = cost-old_cost 
-            print "final cost on training data: {}".format(cost)
-            print "final accuracy on training data: {} / {}".format(accuracy, len(self.training_data))
+            print ("final cost on training data: {}".format(cost))
+            print ("final accuracy on training data: {} / {}".format(accuracy, len(self.training_data)))
             self.update_img()     
 
     def update_img(self):
@@ -167,9 +167,9 @@ class drawableIMG:
         if event.key == "a":
             x = self.net.feedforward(np.reshape(self.img, (784,1)))
            
-            print self.img
+            print (self.img)
             for idx,val in enumerate(x):
-                print idx, 'val = %1.3f' % val
+                print (idx, 'val = %1.3f' % val)
             x = np.argmax(x)
             
             print ('result:', x)
@@ -220,13 +220,13 @@ class testIMGs:
             #obj.set_data(np.reshape(test_data_truncated))
             x = self.net.feedforward(test_data_truncated)
      
-            print np.reshape(test_data_truncated,(28,28))
+            print (np.reshape(test_data_truncated,(28,28)))
             for idx,val in enumerate(x):
-                print idx, 'val = %1.3f' % val
+                print (idx, 'val = %1.3f' % val)
 
             x = np.argmax(x)
             result ="result: " + str(x)
-            print 'result:', x
+            print ('result:', x)
             plt.suptitle(result)
             self.i = self.i + 1
                   
@@ -252,7 +252,7 @@ def main():
     figManager = plt.get_current_fig_manager()
     figManager.window.state('zoomed')
     if mode == 0:
-        print "Net 2, 10, 10, 2"
+        print ("Net 2, 10, 10, 2")
         img = 0.5*np.ones((140,140))
         net = network2.Network([2, 10, 10, 2], cost=network2.CrossEntropyCost)
         net.large_weight_initializer()
@@ -261,7 +261,7 @@ def main():
         plt.gca().invert_yaxis()  
         plt.draw()
     if mode == -1:
-        print "Net 2, 2, 2"
+        print ("Net 2, 2, 2")
         img = 0.5*np.ones((140,140))
         net = network2.Network([2, 2, 2], cost=network2.CrossEntropyCost)
         net.large_weight_initializer()
@@ -293,5 +293,5 @@ def main():
         plt.pause(0.001)
 
           
-    print "exit"
+    print ("exit")
 main()
